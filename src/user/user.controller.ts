@@ -11,8 +11,13 @@ export class UserController {
     const newUser = signUpUser as IUser;
     this.usersService.signUpUser(newUser);
   }
-  @Get()
+  @Get('getUsers')
   getUsers() {
     return this.usersService.getUsers();
+  }
+
+  @Post('login')
+  async login(@Body('_id') _id: string, @Body('password') password: string) {
+    return await this.usersService.logInUser(_id, password);
   }
 }

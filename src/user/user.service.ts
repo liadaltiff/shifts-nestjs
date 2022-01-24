@@ -15,4 +15,13 @@ export class UserService {
     const users = await this.userModel.find().exec();
     return users;
   }
+  async logInUser(id: string, password: string) {
+    const findUser = await this.userModel
+      .findOne({
+        _id: id,
+        password: password,
+      })
+      .exec();
+    return findUser;
+  }
 }
