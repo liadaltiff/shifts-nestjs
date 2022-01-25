@@ -31,6 +31,7 @@ export class ShiftController {
 
   @Patch('offerShift/:id')
   offerShift(@Param('id') id: string) {
+    //@HttpCode(204)
     this.shiftsService.offerShift(id);
   }
 
