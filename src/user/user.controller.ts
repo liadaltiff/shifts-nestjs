@@ -7,13 +7,12 @@ export class UserController {
   constructor(private readonly usersService: UserService) {}
 
   @Post('createUser')
-  signUpUser(@Body() signUpUser: IUser) {
-    const newUser = signUpUser as IUser;
-    this.usersService.signUpUser(newUser);
+  async signUpUser(@Body() signUpUser: IUser) {
+    await this.usersService.signUpUser(signUpUser);
   }
   @Get('getUsers')
-  getUsers() {
-    return this.usersService.getUsers();
+  async getUsers() {
+    return await this.usersService.getUsers();
   }
 
   @Post('login')

@@ -9,12 +9,41 @@ export class ShiftService {
     @InjectModel('Shift') private readonly shiftModel: Model<IShift>,
   ) {}
 
-  async createShift(shift: IShift) {
+  async createShift(shift: IShift, trade: boolean) {
     const newShift = new this.shiftModel(shift);
-    const res = await newShift.save();
+    newShift.traded = trade;
+    await newShift.save();
   }
   async getShifts() {
     const shifts = await this.shiftModel.find().exec();
     return shifts;
+  }
+
+  async getShiftsByPersonId(personId) {
+    const shiftsByPersonId = await this.shiftModel
+      .find({
+        shiftPersonId: personId,
+      })
+      .exec();
+    return shiftsByPersonId;
+  }
+
+  async getShiftByDate(shiftDate) {
+    const shiftByDate = await this.shiftModel
+      .findOne({
+        shiftDate: shiftDate,
+      })
+      .exec();
+    return shiftByDate;
+  }
+
+  async offerShift(id: string) {
+    return await this.shiftModel.findByIdAndUpdate(id, { traded: true }).exec();
+  }
+
+  async getTradedShift(id: string, shiftPerson: string, shiftPersonId: string) {
+    return await this.shiftModel
+      .findByIdAndUpdate(id, { traded: false, shiftPerson, shiftPersonId })
+      .exec();
   }
 }

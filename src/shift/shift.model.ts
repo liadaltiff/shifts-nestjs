@@ -8,8 +8,8 @@ export const Shift = new mongoose.Schema(
     shiftName: { type: String, required: true },
     shiftPerson: { type: String, required: true },
     shiftPersonId: { type: String, required: true },
-    shiftStartTime: { type: String, required: true },
-    shiftEndTime: { type: String, required: true },
+    startTimeValue: { type: String, required: true },
+    endTimeValue: { type: String, required: true },
     traded: { type: Boolean, required: true },
   },
   { versionKey: false },
@@ -21,7 +21,7 @@ export interface IShift {
   shiftName: string;
   shiftPerson: string;
   shiftPersonId: string;
-  shiftStartTime: string;
-  shiftEndTime: string;
+  startTimeValue: string;
+  endTimeValue: string;
   traded: boolean;
 }
