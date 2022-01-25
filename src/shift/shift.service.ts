@@ -39,6 +39,7 @@ export class ShiftService {
 
   async offerShift(id: string) {
     console.log(id);
+
     return await this.shiftModel.findByIdAndUpdate(id, { traded: true }).exec();
   }
 

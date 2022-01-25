@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ShiftModule } from './shift/shift.module';
 import { UserModule } from './user/user.module';
+import { NotificationGateway } from './utils/notification.gateway';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { UserModule } from './user/user.module';
     ),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, NotificationGateway],
 })
 export class AppModule {}
