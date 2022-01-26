@@ -28,8 +28,9 @@ export class UserController {
     user.password = undefined;
     const token = await createToken(user);
     res.cookie('token', token, {
-      sameSite: 'none',
-      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV ? true : false,
+      httpOnly: process.env.NODE_ENV ? true : false,
       expires: new Date(new Date().getTime() + 4 * 60 * 60 * 1000),
     });
     return user;
