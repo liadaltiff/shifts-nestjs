@@ -1,7 +1,18 @@
-import { Body, Controller, Get, Param, Patch, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from 'src/guards/auth.guard';
 import { IShift } from './shift.model';
 import { ShiftService } from './shift.service';
 
+@UseGuards(AuthGuard)
 @Controller('shifts')
 export class ShiftController {
   constructor(private readonly shiftsService: ShiftService) {}
