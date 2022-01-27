@@ -11,7 +11,12 @@ export class UserService {
   async signUpUser(user: IUser) {
     const password = encodePassword(user.password);
     const newUser = new this.userModel({ ...user, password: password });
-    const res = await newUser.save();
+    const foundUser = await this.userModel.findOne({ _id: newUser._id });
+    if (foundUser === null) {
+      const res = await newUser.save();
+    } else {
+      console.log('A user with this mispar ishi already exists');
+    }
   }
   async getUsers() {
     const users = await this.userModel.find().exec();
