@@ -40,10 +40,10 @@ export class ShiftController {
     return this.shiftsService.getShiftByDate(params.shiftDate);
   }
 
-  @Patch('offerShift/:id')
-  offerShift(@Param('id') id: string) {
+  @Patch('offerShift/:_id')
+  offerShift(@Param('_id') _id: string) {
     //@HttpCode(204)
-    this.shiftsService.offerShift(id);
+    this.shiftsService.offerShift(_id);
   }
 
   @Put('getTradedShift/:id')

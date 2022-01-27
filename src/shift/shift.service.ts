@@ -9,11 +9,20 @@ export class ShiftService {
     @InjectModel('Shift') private readonly shiftModel: Model<IShift>,
   ) {}
 
+  // async createShift(shift: IShift, trade: boolean) {
+  //   const newShift = new this.shiftModel(shift);
+  //   newShift.traded = trade;
+  //   await newShift.save();
+  // }
+
   async createShift(shift: IShift, trade: boolean) {
-    const newShift = new this.shiftModel(shift);
-    newShift.traded = trade;
-    await newShift.save();
+    // const newShift = this.shiftModel.create()
+    shift.traded = trade;
+    await this.shiftModel.replaceOne({ shiftDate: shift.shiftDate }, shift, {
+      upsert: true,
+    });
   }
+
   async getShifts() {
     const shifts = await this.shiftModel.find().exec();
     return shifts;
@@ -29,6 +38,8 @@ export class ShiftService {
   }
 
   async getShiftByDate(shiftDate) {
+    console.log('vainer stom tape shelchaaaaa');
+
     const shiftByDate = await this.shiftModel
       .findOne({
         shiftDate: shiftDate,
@@ -37,10 +48,14 @@ export class ShiftService {
     return shiftByDate;
   }
 
-  async offerShift(id: string) {
-    console.log(id);
+  async offerShift(_id: string) {
+    console.log('vainer stom tape shelcha');
 
-    return await this.shiftModel.findByIdAndUpdate(id, { traded: true }).exec();
+    console.log(_id);
+
+    return await this.shiftModel
+      .findByIdAndUpdate(_id, { traded: true })
+      .exec();
   }
 
   async getTradedShift(id: string, shiftPerson: string, shiftPersonId: string) {
