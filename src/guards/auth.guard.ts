@@ -24,12 +24,12 @@ export class AuthGuard implements CanActivate {
   }
 
   validateToken = async (token: string) => {
-    return !!(await jwt.verify(token, process.env.JWT_SECRET));
+    return !!jwt.verify(token, process.env.JWT_SECRET);
   };
 }
 
 export const createToken = async (payload: any) => {
-  return await jwt.sign({ ...payload }, process.env.JWT_SECRET, {
+  return jwt.sign({ ...payload }, process.env.JWT_SECRET, {
     expiresIn: '4h',
   });
 };
